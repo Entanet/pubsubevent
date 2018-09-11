@@ -13,7 +13,6 @@
       "email": "mark.jones@enta.net"
     }
   ],
-  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "Entanet\\KafkaEvent\\": "src/",
