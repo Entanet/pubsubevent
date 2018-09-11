@@ -1,39 +1,100 @@
 # Pub Sub Event
 
-Wrapper for Laravel events so that an event can be published without using a listener.
-
-## Getting Started
-
-Drop it into your laravel projects where you want events to publish direct to a PubSub
- queue without using a listener.
+Wrapper for Laravel events so that an event can be published externally without using a listener.
 
 ## Prerequisities
 
-Laravel 5.6+
-superbalist/laravel-pubsub
+
+* [Laravel](https://laravel.com/) 5.6+
+* [superbalist/laravel-pubsub](https://github.com/Superbalist/laravel-pubsub) 3.0+
 
 
 ### Installing
 
-Run  in your Laravel project to install the library:
+Run the below in your Laravel project to install the library:
 
 ```
     composer require entanet/pub-sub-event
 ```
 
-### Overriding the Laravel global helper event
+### Registering the service provider
 
-Laravel comes with a global helper event which calls the link class. If you want to override 
-that helper with the kafka event you need to require the kafkaEventHelper.php file before the
- vendor/autoload.php. Here is an example from the index.php file in Laravel 5.6:
- 
+To register the PubSubEventProvider add the below line into the providers array in config/app.php in Laravel:
+
 ```
-      // KafkaEventHelper.php is used to override the laravel global event helper.
-     require __DIR__.'/../vendor/entanet/kafka-event/src/kafkaEventHelper.php';
-     require __DIR__.'/../vendor/autoload.php';
+    'providers' => [
+    ...
+    \Entanet\PubSubEvent\PubSubEventServiceProvider::class
+    ...
+```
+
+### Add an alias to the Pub Sub Event Facade
+
+To add an alias to the facade add the following to the alias array in config/app.php in Laravel:
+
+```
+    'aliases' => [
+    ...
+    'PubSubEvent' => \Entanet\PubSubEvent\PubSubEventFacade::class,
+    ...
     
 ```
 
-### Using kafka event
+Also you can alter the current event alias so that any current Event calls use the Pub Sub Event:
 
-If you want to call 
+Change:
+
+```
+    'aliases' => [
+    ...
+    'Event' =>  Illuminate\Support\Facades\Event::class,
+    ...
+    
+```
+
+To:
+
+```
+    'aliases' => [
+    ...
+    'Event' => \Entanet\PubSubEvent\PubSubEventFacade::class,
+    ...
+    
+```
+ 
+ ### Overriding the Laravel global helper event
+ 
+ Laravel comes with a global helper event which dispatches the given event. If you want to override 
+ that helper with the Pub Sub Event you need to require the PubSubEventHelper.php file before the
+  vendor/autoload.php. Here is an example, altering the public/index.php file in Laravel 5.6:
+  
+ ```
+       // PubSubEventHelper.php is used to override the laravel global event helper.
+        require __DIR__.'/../vendor/entanet/pub-sub-event/src/PubSubEventHelper.php';
+        require __DIR__.'/../vendor/autoload.php';
+     
+ ```
+
+### Using Pub Sub Event via the Alias/facade
+
+Call dispatch from the facade and supply a relevant event (new \App\Events\PubEvent()), the topic ('topic_name) and the
+ message to be sent ('Hello, there')   
+
+```
+    PubSubEvent::dispatch(new \App\Events\PubEvent(), 'topic_name', 'Hello, there'); 
+```
+
+Or if you have altered the existing Event alias:
+
+```
+    Event::dispatch(new \App\Events\PubEvent(), 'topic_name', 'Hello, there'); 
+```
+
+### Using Pub Sub Event via event global helper
+
+If you overridden the global helper:
+
+```
+    Event(new \App\Events\PubEvent(), 'topic_name', 'Hello, there');
+```
+
