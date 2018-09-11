@@ -5,7 +5,7 @@
   "require": {
     "php": ">=7.2.0",
     "illuminate/support": "^5.6",
-    "superbalist/laravel-pubsub": "3.0"
+    "superbalist/laravel-pubsub": "^3.0"
   },
   "authors": [
     {
@@ -13,6 +13,7 @@
       "email": "mark.jones@enta.net"
     }
   ],
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "Entanet\\KafkaEvent\\": "src/",
