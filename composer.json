@@ -16,7 +16,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Entanet\\KafkaEvent\\": "src/",
+      "Entanet\\PubSubEvent\\": "src/",
       "Tests\\": "tests/"
     }
   },

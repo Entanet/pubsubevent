@@ -18,7 +18,7 @@ superbalist/laravel-pubsub
 Run  in your Laravel project to install the library:
 
 ```
-    composer require entanet/kafka-event
+    composer require entanet/pub-sub-event
 ```
 
 ### Overriding the Laravel global helper event
