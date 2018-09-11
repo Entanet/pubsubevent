@@ -1,5 +1,5 @@
 {
-  "name": "entanet/kafka-event",
+  "name": "entanet/pub-sub-event",
   "description": "Wrapper for laravel events so that an event can be published without using a listener.",
   "type": "library",
   "require": {
@@ -19,5 +19,11 @@
       "Entanet\\KafkaEvent\\": "src/",
       "Tests\\": "tests/"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Entanet/pubsubevent"
+    }
+  ]
 }
