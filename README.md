@@ -64,7 +64,7 @@ To:
  
  ### Overriding the Laravel global helper event
  
- Laravel comes with a global helper event which dispatches the given event. If you want to override 
+ Laravel comes with a global helper [event](https://laravel.com/docs/5.6/helpers#method-event) which dispatches the given event so you don't have to use the facade. If you want to override 
  that helper with the Pub Sub Event you need to require the PubSubEventHelper.php file before the
   vendor/autoload.php. Here is an example, altering the public/index.php file in Laravel 5.6:
   
@@ -77,7 +77,7 @@ To:
 
 ### Using Pub Sub Event via the Alias/facade
 
-Call dispatch from the facade and supply a relevant event (new \App\Events\PubEvent()), the topic ('topic_name) and the
+Call dispatch from the facade and supply a relevant event (new \App\Events\PubEvent()), the topic ('topic_name') and the
  message to be sent ('Hello, there')   
 
 ```
