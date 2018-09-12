@@ -25,7 +25,6 @@ class PubSubEvent
             $pubSub->publish($event->topic, json_encode($event));
         }
 
-        Event::dispatch($event);
-
+        return Event::dispatch($event);
     }
 }
