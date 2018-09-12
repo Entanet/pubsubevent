@@ -10,7 +10,7 @@ namespace Entanet\PubSubEvent;
 
 use Illuminate\Support\Facades\Event;
 
-class PubSubEvent extends
+class PubSubEvent
 {
 
 
