@@ -10,12 +10,19 @@ namespace Entanet\PubSubEvent;
 
 use Illuminate\Support\Facades\Event;
 
-class PubSubEvent
+class PubSubEvent extends
 {
-    public static function dispatch($event, $topic = null, $dataload = null) {
-        if ($topic && $dataload) {
+
+
+    public function __construct()
+    {
+
+    }
+
+    public function dispatch($event) {
+        if ($this->topic) {
             $pubSub = app('pubsub');
-            $pubSub->publish($topic, $dataload);
+            $pubSub->publish($this->topic, json_encode($event));
         }
 
         Event::dispatch($event);
