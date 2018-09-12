@@ -20,7 +20,7 @@ class PubSubEvent
     }
 
     public function dispatch($event) {
-        if ($this->topic) {
+        if ($event->topic) {
             $pubSub = app('pubsub');
             $pubSub->publish($this->topic, json_encode($event));
         }
