@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Event;
 
 class PubSubEvent
 {
-
-
-    public function __construct()
-    {
-
-    }
-
     public function dispatch($event) {
         if ($event->topic) {
             $pubSub = app('pubsub');
