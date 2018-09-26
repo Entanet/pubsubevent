@@ -80,13 +80,13 @@ To:
 Call dispatch from the facade and supply a relevant event contianing the event data and topic (new \App\Events\PubEvent($data, 'topic_name'))   
 
 ```
-    PubSubEvent::dispatch(new \App\Events\PubEvent($data, 'topic_name')); 
+    PubSubEvent::dispatch(new \App\Events\PubEvent($data), 'topic_name'); 
 ```
 
 Or if you have altered the existing Event alias:
 
 ```
-    Event::dispatch(new \App\Events\PubEvent($data, 'topic_name')); 
+    Event::dispatch(new \App\Events\PubEvent($data), 'topic_name'); 
 ```
 
 ### Using Pub Sub Event via event global helper
@@ -94,19 +94,9 @@ Or if you have altered the existing Event alias:
 If you overridden the global helper:
 
 ```
-    Event(new \App\Events\PubEvent($data, 'topic_name'));
+    event(new \App\Events\PubEvent($data), 'topic_name');
 ```
 
-### What to put in the event
-
-In the event you should set the topic property to the topic name passed into the constructor:
-
-```
-      public function __construct($event, $topic)
-        {
-            $this->event = $event;
-            $this->topic = $topic;
-        }
-```
+### What does pub sub do with the topic?
 
 Pub Sub Event will check for a topic and if it exists publish the json_encoded event object.

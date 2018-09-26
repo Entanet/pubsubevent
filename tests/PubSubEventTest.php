@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Event;
 
 class PubSubEventTest extends TestCase
 {
-
     public function setUp() {
         parent::setUp();
 
