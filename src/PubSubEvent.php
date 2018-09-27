@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Event;
 
 class PubSubEvent
 {
-    public function dispatch($event, $topic) {
+    public function dispatch($event, $topic = false) {
         if ($topic) {
             $pubSub = app('pubsub');
             $pubSub->publish($topic, json_encode($event));

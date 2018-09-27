@@ -23,15 +23,16 @@ class PubSubEventTest extends TestCase
     public function testDispatch()
     {
         $event = new \stdClass();
-        $event->topic = 'test_topic';
         $event->testEvent = true;
+        $pubSubMock = \Mockery::mock('Superbalist\PubSub\Kafka\KafkaPubSubAdapter');
+        $this->app->instance('pubsub', $pubSubMock);
+        $pubSubMock->shouldReceive('publish')->with('test_topic', json_encode($event))->andReturn([]);
 
-        $mock = \Mockery::mock(PubSubEvent::class);
-        $this->app->instance(PubSubEvent::class, $mock);
-
-        $response = $this->pubSubEvent->dispatch($event);
-
+        $response = $this->pubSubEvent->dispatch($event, 'test_topic');
         $this->assertEquals([], $response);
-        $mock->shouldReceive('dispatch')->andReturn([]);
+
+        $response2 = $this->pubSubEvent->dispatch($event);
+        $pubSubMock->shouldNotReceive('publish');
+        $this->assertEquals([], $response2);
     }
 }
