@@ -100,3 +100,5 @@ If you overridden the global helper:
 ### What does pub sub do with the topic?
 
 Pub Sub Event will check for a topic and if it exists publish the json_encoded event object.
+
+Pull Request Update
